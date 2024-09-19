@@ -1,12 +1,15 @@
 {
   "name": "@moliyu/lsp-unocss",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "out/index.js",
   "type": "module",
   "scripts": {
     "dev": "tsc -b -w",
     "build": "tsc -b"
+  },
+  "bin": {
+    "unocss-lsp": "./bin/index.js"
   },
   "keywords": [],
   "author": "",
