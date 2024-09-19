@@ -1,0 +1,40 @@
+{
+  "name": "@moliyu/coc-unocss",
+  "version": "1.0.2",
+  "description": "Unocss extension with lsp for coc.nvim",
+  "author": "moliyu <951028382@qq.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "out/index.js",
+  "scripts": {
+    "dev": "tsc -b -w",
+    "build": "tsc -b"
+  },
+  "engines": {
+    "coc": "^0.0.82"
+  },
+  "activationEvents": [
+    "onLanguage:vue",
+    "onLanguage:html",
+    "onLanguage:svelte",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Example configuration",
+      "properties": {}
+    }
+  },
+  "keywords": [
+    "coc.nvim unocss",
+    "unocss-lsp"
+  ],
+  "dependencies": {
+    "@moliyu/lsp-unocss": "workspace:*",
+    "coc.nvim": "0.0.83-next.9"
+  }
+}
