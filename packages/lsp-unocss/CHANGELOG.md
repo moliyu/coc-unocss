@@ -1,5 +1,11 @@
 # @moliyu/lsp-unocss
 
+## 1.0.3
+
+### Patch Changes
+
+- fix hover
+
 ## 1.0.2
 
 ### Patch Changes
