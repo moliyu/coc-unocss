@@ -19,8 +19,8 @@ import {
 
 import { TextDocument } from "vscode-languageserver-textdocument";
 import {
-  ctx,
   getComplete,
+  markdownCss,
   resolveConfig,
   resolveCSS,
   resolveCSSByOffset,
@@ -79,41 +79,19 @@ connection.onInitialize((params: InitializeParams) => {
   return result;
 });
 
-connection.onInitialized(() => {
-  if (hasConfigurationCapability) {
-    // Register for all configuration changes.
-    connection.client.register(
-      DidChangeConfigurationNotification.type,
-      undefined,
-    );
-  }
-  if (hasWorkspaceFolderCapability) {
-    connection.workspace.onDidChangeWorkspaceFolders((_event) => {
-      connection.console.log("Workspace folder change event received.");
-    });
-  }
-});
-
 connection.onHover(async (params) => {
   const doc = documents.get(params.textDocument.uri);
   const content = doc?.getText();
   const cursor = doc?.offsetAt(params.position);
   if (content && cursor) {
-    if (ctx.cache.has(content)) {
+    const contents = await resolveCSSByOffset(content, cursor);
+    if (contents) {
       return {
-        contents: ctx.cache.get(content)!,
+        contents,
       };
-    } else {
-      const res = await resolveCSSByOffset(content, cursor);
-      const css = res?.css;
-      if (css) {
-        await ctx.add(content, css);
-        return {
-          contents: ctx.cache.get(content)!,
-        };
-      }
     }
   }
+  return null;
 });
 
 // This handler provides the initial list of the completion items.
@@ -124,7 +102,7 @@ connection.onCompletion(
     // The pass parameter contains the position of the text document in
     // which code complete got requested. For the example we ignore this
     // info and always provide the same completion items.
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // await new Promise((resolve) => setTimeout(resolve, 500));
     const doc = documents.get(_textDocumentPosition.textDocument.uri);
     const content = doc?.getText();
     const cursor = doc?.offsetAt(_textDocumentPosition.position);
@@ -161,7 +139,7 @@ connection.onCompletionResolve(
     const result = await resolveCSS(item);
     const css = result.css;
 
-    const _css = await ctx.getCss(css);
+    const _css = await markdownCss(css);
 
     item.documentation = {
       value: _css,

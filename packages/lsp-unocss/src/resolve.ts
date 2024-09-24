@@ -7,28 +7,7 @@ import { CompletionItem } from "vscode-languageserver";
 import prettier from "prettier/standalone";
 import parserCss from "prettier/parser-postcss";
 
-class Cache {
-  cache: Map<string, string> = new Map();
-  cssMap: Map<string, string> = new Map();
-  async add(key: string, css: string) {
-    if (!this.cache.has(key)) {
-      const _css = await this.getCss(css);
-      this.cache.set(key, `\n\`\`\`css\n${_css.trim()}\n\`\`\``);
-    }
-  }
-  async getCss(css: string) {
-    if (!this.cssMap.has(css)) {
-      const _css = await prettier.format(css, {
-        parser: "css",
-        plugins: [parserCss],
-      });
-      this.cssMap.set(css, _css);
-    }
-    return this.cssMap.get(css)!;
-  }
-}
-
-export const ctx = new Cache();
+const cache: Map<string, string> = new Map();
 
 const defaultConfig = {
   presets: [preserUno()],
@@ -94,12 +73,25 @@ export function getComplete(content: string, cursor: number) {
   return autocomplete.suggestInFile(content, cursor);
 }
 
-export function resolveCSSByOffset(content: string, cursor: number) {
+export async function markdownCss(css) {
+  const res = await prettier.format(css, {
+    parser: "css",
+    plugins: [parserCss],
+  });
+  return `\n\`\`\`css\n${res.trim()}\n\`\`\``;
+}
+
+export async function resolveCSSByOffset(content: string, cursor: number) {
   const cls = searchUsageBoundary(content, cursor)?.content;
   if (cls) {
-    return generator.generate(cls, {
-      preflights: false,
-      safelist: false,
-    });
+    if (!cache.has(cls)) {
+      const res = await generator.generate(cls, {
+        preflights: false,
+        safelist: false,
+      });
+      const prettiedCss = await markdownCss(res.css);
+      cache.set(cls, prettiedCss);
+    }
+    return cache.get(cls);
   }
 }
