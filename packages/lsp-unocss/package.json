@@ -1,12 +1,17 @@
 {
   "name": "@moliyu/lsp-unocss",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "out/index.js",
   "type": "module",
   "scripts": {
     "dev": "tsc -b -w",
     "build": "tsc -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moliyu/coc-unocss.git",
+    "directory": "packages/lsp-unocss"
   },
   "bin": {
     "unocss-lsp": "./bin/index.js"

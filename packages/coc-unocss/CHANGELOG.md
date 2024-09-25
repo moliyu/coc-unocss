@@ -1,5 +1,13 @@
 # @moliyu/coc-unocss
 
+## 1.0.6
+
+### Patch Changes
+
+- 03211b1: add readme
+- Updated dependencies [03211b1]
+  - @moliyu/lsp-unocss@1.0.4
+
 ## 1.0.5
 
 ### Patch Changes
