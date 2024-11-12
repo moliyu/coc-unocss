@@ -1,5 +1,11 @@
 # @moliyu/lsp-unocss
 
+## 1.0.5
+
+### Patch Changes
+
+- 70bd7d8: add attribute support
+
 ## 1.0.4
 
 ### Patch Changes
