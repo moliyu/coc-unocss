@@ -6,7 +6,7 @@
   "scripts": {
     "dev:lsp": "pnpm -C packages/lsp-unocss dev",
     "dev:coc": "pnpm -C packages/coc-unocss dev",
-    "release": "pnpm -r build && pnpm changeset"
+    "release": "pnpm -r build"
   },
   "keywords": [],
   "author": "",
