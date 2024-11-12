@@ -1,6 +1,6 @@
 {
   "name": "@moliyu/coc-unocss",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Unocss extension with lsp for coc.nvim",
   "author": "moliyu <951028382@qq.com>",
   "license": "MIT",

@@ -1,5 +1,13 @@
 # @moliyu/coc-unocss
 
+## 1.0.8
+
+### Patch Changes
+
+- e09a7f2: add build script
+- Updated dependencies [e09a7f2]
+  - @moliyu/lsp-unocss@1.0.6
+
 ## 1.0.7
 
 ### Patch Changes

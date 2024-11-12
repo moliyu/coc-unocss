@@ -1,5 +1,11 @@
 # @moliyu/lsp-unocss
 
+## 1.0.6
+
+### Patch Changes
+
+- e09a7f2: add build script
+
 ## 1.0.5
 
 ### Patch Changes
